@@ -1,0 +1,54 @@
+<template>
+  <div id="app" class="bg-light">
+    <step-progress-bar
+      v-bind:id="stepProgressBarParams.vueComponentId"
+    />
+    
+    <a id="back" class="btn btn-default mt-5" href="#">Back</a>
+    <a id="next" class="btn btn-default mt-5" href="#">Next</a>
+    <app-footer/>
+  </div>
+</template>
+
+<script>
+import StepProgressBar from './StepProgressBarComponent.vue'
+import StepProgressBarJs from './step-progressbar-component.js'
+
+export default {
+  name: 'app',
+  data () {
+    return {
+      stepProgressBarParams : {
+        vueComponentId: "step-progress-bar-1",
+        totalSteps: 5,
+        currentStep: 1,
+        stepTitles: ["Step 1", "Step 2", "Step 3", "Step 4", "Step 5"]
+      }
+    }
+  },
+  components: {
+    'step-progress-bar': StepProgressBar
+  },
+  methods: {
+    
+  },
+  mounted() {
+       this.$nextTick(function() {
+            StepProgressBarJs.initProgressBar(this.stepProgressBarParams);
+
+            //TODO: to be removed
+            var params = this.stepProgressBarParams;
+            $('#next').click(function() {
+                StepProgressBarJs.updateProgressBar(true, params);
+            });
+            $('#back').click(function() {
+                StepProgressBarJs.updateProgressBar(false, params);
+            });
+       });
+  }
+}
+</script>
+
+<style lang="scss">
+
+</style>
