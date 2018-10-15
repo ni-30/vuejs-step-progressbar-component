@@ -1,6 +1,6 @@
 A Vue.js project.
 
-Vue.js component of step-progress bar.
+Sample Vue.js code for step-progress bar component using Bootstrap for css and html styling.
 
 ## Build Setup
 
