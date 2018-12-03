@@ -1,6 +1,6 @@
-# vuejs-step-progressbar-component
+A Vue.js project.
 
-> Runnable step progress bar component in Vue.js.
+Sample Vue.js code for step-progress bar component using Bootstrap for css and html styling.
 
 ## Build Setup
 
@@ -14,5 +14,3 @@ npm run dev
 # build for production with minification
 npm run build
 ```
-
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
