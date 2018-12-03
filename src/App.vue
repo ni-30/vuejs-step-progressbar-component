@@ -1,7 +1,10 @@
 <template>
   <div id="app" class="bg-light">
     <step-progress-bar
-      v-bind:id="stepProgressBarParams.vueComponentId"
+      ref="stepProgressBarCompRef"
+      v-bind:totalSteps="stepProgressBarParams.totalSteps"
+      v-bind:initCurrentStep="stepProgressBarParams.currentStep"
+      v-bind:stepTitles="stepProgressBarParams.stepTitles"
     />
     
     <a id="back" class="btn btn-default mt-5" href="#">Back</a>
@@ -12,14 +15,12 @@
 
 <script>
 import StepProgressBar from './StepProgressBarComponent.vue'
-import StepProgressBarJs from './step-progressbar-component.js'
 
 export default {
   name: 'app',
   data () {
     return {
       stepProgressBarParams : {
-        vueComponentId: "step-progress-bar-1",
         totalSteps: 5,
         currentStep: 1,
         stepTitles: ["Step 1", "Step 2", "Step 3", "Step 4", "Step 5"]
@@ -29,20 +30,26 @@ export default {
   components: {
     'step-progress-bar': StepProgressBar
   },
-  methods: {
-    
+  watch: {
+    'stepProgressBarParams.currentStep': function(val) {
+      this.$refs.stepProgressBarCompRef.changeCurrentStep(val);
+    }
   },
   mounted() {
        this.$nextTick(function() {
-            StepProgressBarJs.initProgressBar(this.stepProgressBarParams);
-
-            //TODO: to be removed
-            var params = this.stepProgressBarParams;
+            var vueThis = this;
             $('#next').click(function() {
-                StepProgressBarJs.updateProgressBar(true, params);
+                if (vueThis.stepProgressBarParams.currentStep > vueThis.stepProgressBarParams.totalSteps) {
+                  return;
+                }
+                vueThis.stepProgressBarParams.currentStep += 1;
             });
             $('#back').click(function() {
-                StepProgressBarJs.updateProgressBar(false, params);
+              if (vueThis.stepProgressBarParams.currentStep == 1) {
+                return;
+              }
+              vueThis.stepProgressBarParams.currentStep -= 1;
+              vueThis.$refs
             });
        });
   }
