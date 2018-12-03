@@ -49,7 +49,6 @@ export default {
                 return;
               }
               vueThis.stepProgressBarParams.currentStep -= 1;
-              vueThis.$refs
             });
        });
   }
